@@ -1,0 +1,119 @@
+
+<!doctype html>
+<html>
+<head>
+    <title>Click Speed Test</title>
+
+    <meta charset = "utf-8" />
+    <meta http-equiv = "Content-type" content = "text/html; charset=utf-8" />
+    <meta name = "viewport" content = "width=device-width, initial-scale=1" />
+
+    <style>
+
+    	body {
+    		font-family: Verdana, Geneva, sans-serif;
+    	}
+
+	#redBox {
+		height: 200px;
+		width: 200px;
+		background-color: red;
+		display: none;
+		position: relative;
+	}
+
+	.bold {
+		font-weight: bold;
+		border-style: outset;
+    	max-width: 300px;
+	}
+
+	#time {
+		color: red;
+	}
+
+	</style>
+   
+</head>
+
+<body>
+
+	<h1>Test your reaction time!</h1>
+
+	<p>Click on the boxes and circles as quickly as you can!</p>
+
+	<p class = "bold">Your time: <span id = "time">0</span> seconds!</p>
+
+	<div id = "redBox"></div>
+
+	<!-- CREATING RANDOM COLORS, THE CIRCLE OR SQUARE, AND RANDOM LOCATOINS -->
+	<script type = "text/javascript">
+
+		function getRandomColor() {
+			var letters = '0123456789ABCDEF' .split('');
+			var color = '#';
+			for (var i = 0; i < 6; i++) {
+				color += letters[Math.round(Math.random() * 15)];
+			}
+			return color;
+		}
+
+		var clickedTime; var createdTime; var reactionTime;
+
+		function makeBox() {
+
+			var time=Math.random(); var
+
+			time = time*5000;
+
+			setTimeout(function() {
+
+				if (Math.random()>0.5) {
+
+					document.getElementById("redBox").style.borderRadius = "200px";
+				} else {
+
+					document.getElementById("redBox").style.borderRadius = "0";
+				}
+
+				var top = Math.random();
+
+				top = top*500;
+
+				var left = Math.random();
+
+				left = left*500;
+
+				document.getElementById("redBox").style.top = top + "px";
+
+				document.getElementById("redBox").style.left = left + "px";
+
+				document.getElementById('redBox').style.backgroundColor = getRandomColor();
+
+				document.getElementById("redBox").style.display = "block";
+
+				createdTime = Date.now();
+
+			}, time);
+		}
+
+		// RECORDING THE TIME 
+		document.getElementById("redBox").onclick=function() {
+
+			clickedTime = Date.now();
+
+			reactionTime = (clickedTime-createdTime)/1000;
+
+			document.getElementById("time").innerHTML = reactionTime;
+
+			this.style.display = "none";
+
+			makeBox();
+		}
+
+		makeBox();
+
+	</script>
+
+</body>
+</html>
